@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery Events</title>
+    <script src="script/jquery.min.js"></script>
+    <script>
+        $(document).ready( function(){
+
+            //1
+            $("#button1").click(function(event) {
+                alert("Button: 1 was clicked.")
+            });
+
+            //2
+            $("#button2").bind("click", function(event) {
+                alert("Button: 2 was clicked.")
+            });
+
+            //3
+            $("#button3").on("click",function(){
+            window.alert("Button: 3 was clicked.");
+            });
+
+            //4
+            $('#buttondiv').on({
+             click:function(){
+            window.alert("Button has been clicked (Single handler)");
+            }
+            },'button');
+
+            //5
+            $("#myDiv").width("400px").height("400px");
+
+            $("body").on({
+                click: function(event) {
+                    window.alert("Div was clicked")
+                },
+
+                mouseenter: function(event) {
+                    window.alert("The mouse entered into div")
+                },
+
+                mouseleave: function(event) {
+                    window.alert("The mouse left the div")
+                }
+                
+            }, "#myDiv");
+
+            //6
+            $("body").on({
+                click: function(event) {
+                    $("#eventmsg").html("Div was clicked");
+                },
+
+                mouseenter: function(event) {
+                    $("#eventmsg").html("The mouse entered into div");
+                },
+
+                mouseleave: function(event) {
+                    $("#eventmsg").html("The mouse left the div");
+                }
+                
+            }, "#myDiv");
+
+            //7
+            $("a").click(function(event){
+            var element=$(this);
+            event.preventDefault();
+            $("a").css("color","red");
+            window.alert("Node that triggered the event: "+ event.target.nodeName);
+        });
+
+        //8
+        $(window).resize(function(){
+            $("#dimensions").html("Width :"+$(window).width()+"<br>"+"Height :"+$(window).height());
+            
+        });
+
+        //9
+        $("#input_bg").focus(function() {
+            $("#input_bg").css("background-color", "lightgray");
+        }); 
+
+        $("#input_bg").blur(function() {
+            $("#input_bg").css("background-color", "white");
+        }); 
+
+        //10
+        $("#form_submit").on("click", function() {
+        var name = $("#form_name");
+        var email = $("#form_email");
+        var flag = false;
+
+        if (name.val().length == 0) {
+            flag = true;
+            name.css("border", "2px solid red");
+            alert("Name is a required.");            
+        } else {
+            name.css("border", "2px solid green");
+        }
+
+        if (email.val().length == 0) {
+            flag = true;
+            email.css("border", "2px solid red");
+            alert("Email is a required field.");           
+        } else {
+            email.css("border", "2px solid green");
+        }
+
+        if (!flag) {                    
+            alert("Name : "+ name.val() + "\nEmail : "+ email.val());
+        }
+        });
+
+        });
+    </script>
+</head>
+<body>
+    <p>Task 1:</p>
+    <button id="button1">Button : 1</button><br>
+    <p>Task 2:</p>
+    <button id="button2">Button : 2</button><br>
+    <p>Task 3:</p>
+    <button id="button3">Button : 3</button><br>
+    <p>Task 4:</p>
+    <div id="buttondiv">
+        <button class="button4">Button: 4(Single Handler)</button>
+        <button class="button4">Button: 4(Single Handler)</button>
+    </div><br>
+    <p>Task 5:</p>
+    <div id= "myDiv" style="background-color: silver"></div><br>
+    <p>Task 6:</p>
+    <span id="eventmsg"></span><br>
+    <p>Task 7:</p>
+    <a href="www.modulemedia.com">www.modulemedia.com</a><br><br>
+    <p>Task 8:</p>
+    <div id="dimensions"></div>
+    <p>Task 9:</p>
+    <input id="input_bg" type="text"><br><br>
+    <p>Task 10:</p>
+    <p>Form</p>
+    <form>
+        <input id="form_name" type="text" placeholder="Enter your Name"><br><br>
+        <input id="form_email" type="text" placeholder="Enter your Email"><br><br>
+        <button id="form_submit" type="button">Submit</button>
+    </form>
+    <br>
+</body>
+</html>
